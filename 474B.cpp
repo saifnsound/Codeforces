@@ -1,38 +1,24 @@
 #include<iostream>
+#include<algorithm>
 using namespace std;
 int main()
 {
 	int n;
 	cin>>n;
-	int a[n][2];
-	int x[n];
-	for(int i=0;i<n;i++) {
-		cin>>x[i];	
-	}
-	a[0][0]=1;
-	a[0][1]=x[0];
-	int i=1;
-	while(i<n) {
-		a[i][0]=a[i-1][1]+1;
-		a[i][1]=x[i]+a[i-1][1];		
-		i++;
+	int pos[n+1];
+	pos[0]=0;
+	for(int i=0; i<n ; i++) {
+		int x;
+		cin>>x;
+		pos[i+1]=pos[i]+x;
 	}
 	int m;
 	cin>>m;
-	int y[m];
-	for(int i=0;i<m;i++) {
-		cin>>y[i];
-	}
-	for (i=0;i<m;i++)
-	{
-		for(int j=0;j<n;j++)
-		{
-			if(y[i] >= a[j][0] && y[i]<= a[j][1])
-			{
-				cout<< j+1<<endl;
-				break;
-			}
-		}
+	for(int i=0; i<m ; i++) {
+		int x;
+		cin>>x;
+		int ch = lower_bound(pos, pos+n, x) -pos;
+		cout<<ch<<endl;
 	}
 	return 0;
 }
